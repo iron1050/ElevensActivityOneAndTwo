@@ -47,7 +47,7 @@ public class Deck {
 
     public Deck() {
         cards = new ArrayList<>();
-        size = 0;
+        size = cards.size();
     }
 
 
@@ -56,7 +56,7 @@ public class Deck {
      * @return true if this deck is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return cards.size() == 0;
+        return cards.isEmpty();
     }
 
     /**
@@ -94,12 +94,19 @@ public class Deck {
      *         previously dealt.
      */
     public Card deal() {
+        if(isEmpty()) {
+            return null;
+        }
+        if(size-1<0) {
+            return null;
+        }
         size--;
-        return cards.get(size);
+        return cards.remove(size);
     }
 
     public void addToTop(Card newCard) {
         cards.add(newCard);
+        size++;
     }
 
     /**

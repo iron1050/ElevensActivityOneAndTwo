@@ -27,6 +27,7 @@ public class WarRunner{
     {
         //beginningDeck is the Deck we start with.  When we deal, it gets split into two
         //Decks for each player
+        int cardsLaid = 0;
         Deck beginningDeck = new Deck(RANKS,SUITS,POINT_VALUES);
         Deck playerDeck = new Deck();
         Deck computerDeck = new Deck();
@@ -56,6 +57,7 @@ public class WarRunner{
             String choice = s.nextLine();
             Card playerDeal = null;
             Card computerDeal = null;
+            int cardsDown = 0;
             if(choice.equals("")) {
                  playerDeal = playerDeck.deal();
                  computerDeal = computerDeck.deal();
@@ -65,11 +67,13 @@ public class WarRunner{
                  playerDeal = playerDeck.deal();
                  computerDeal = computerDeck.deal();
             }
+            System.out.println("You drew a " + playerDeal.pointValue() + " of " + playerDeal.suit());
+            System.out.println("The computer drew a " + computerDeal.pointValue() + " of " + computerDeal.suit());
             while(playerDeal.matches(computerDeal)) {
                 System.out.println("Its a tie! Battle again!");
                 System.out.println("You and the computer each lay down 3 cards.");
-
             }
+
 
         }
         if(didWin) {
