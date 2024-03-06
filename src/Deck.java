@@ -35,16 +35,19 @@ public class Deck {
      */
     public Deck(String[] ranks, String[] suits, int[] values) {
         cards = new ArrayList<>();
-        int j = 0;
-        size = 0;
-        for(int i = 0; i < ranks.length; i++) {
-            if(j>=suits.length) {
-                j=0;
+        //int j = 0;
+
+        for(int i = 0; i < suits.length; i++) {
+            for(int j = 0; j < ranks.length;j++) {
+                cards.add(new Card(ranks[j],suits[i],values[j]));
             }
-            cards.add(new Card(ranks[i], suits[j],values[i]));
-            j++;
-            size++;
         }
+        size = cards.size();
+    }
+
+    public Deck() {
+        cards = new ArrayList<>();
+        size = 0;
     }
 
 
@@ -71,14 +74,17 @@ public class Deck {
     public void shuffle() {
         Card[] shuffled = new Card[52];
         int k = 0;
-        for(int j = 0; j <= 25; j++) {
+        for(int j = 0; j < 25; j++) {
             shuffled[k] = cards.get(j);
             k+=2;
         }
-
+        k=1;
         for(int j = 26; j < 52; j++) {
             shuffled[k] = cards.get(j);
             k+=2;
+        }
+        for(int i = 0; i < shuffled.length;i++) {
+            cards.set(i, shuffled[i]);
         }
     }
 
@@ -90,6 +96,10 @@ public class Deck {
     public Card deal() {
         size--;
         return cards.get(size);
+    }
+
+    public void addToTop(Card newCard) {
+        cards.add(newCard);
     }
 
     /**

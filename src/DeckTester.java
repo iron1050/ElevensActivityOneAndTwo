@@ -15,5 +15,7 @@ public class DeckTester {
         System.out.println(d);
         d.deal();
         System.out.println(d);
+        d.shuffle();
+        System.out.println(d);
     }
 }
