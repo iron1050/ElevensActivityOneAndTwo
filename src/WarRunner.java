@@ -54,6 +54,10 @@ public class WarRunner{
                 break;
             }
             System.out.println("Press 'Enter' to fight another battle or 'S' to shuffle your deck!");
+            System.out.println("Player deck size: " + playerDeck.size());
+            System.out.println("Computer deck size: " + computerDeck.size());
+
+
             String choice = s.nextLine();
             Card playerDeal = null;
             Card computerDeal = null;
@@ -61,18 +65,35 @@ public class WarRunner{
             if(choice.equals("")) {
                  playerDeal = playerDeck.deal();
                  computerDeal = computerDeck.deal();
+                 cardsDown = 2;
+            }else {
+                if (choice.equals("S")) {
+                    playerDeck.shuffle();
+                    playerDeal = playerDeck.deal();
+                    computerDeal = computerDeck.deal();
+                    cardsDown = 2;
+                }
             }
-            if(choice.equals("S")) {
-                playerDeck.shuffle();
-                 playerDeal = playerDeck.deal();
-                 computerDeal = computerDeck.deal();
-            }
+
+
             System.out.println("You drew a " + playerDeal.pointValue() + " of " + playerDeal.suit());
             System.out.println("The computer drew a " + computerDeal.pointValue() + " of " + computerDeal.suit());
             while(playerDeal.matches(computerDeal)) {
                 System.out.println("Its a tie! Battle again!");
                 System.out.println("You and the computer each lay down 3 cards.");
+                cardsDown+=6;
             }
+            if(playerDeal.pointValue()>computerDeal.pointValue()) {
+                System.out.println("The player won 2 cards");
+                playerDeck.addToBottom(playerDeal);
+                playerDeck.addToBottom(computerDeal);
+            }
+            if(computerDeal.pointValue()>playerDeal.pointValue()) {
+                System.out.println("The computer won 2 cards");
+                computerDeck.addToBottom(playerDeal);
+                computerDeck.addToBottom(computerDeal);
+            }
+
 
 
         }

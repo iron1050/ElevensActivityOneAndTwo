@@ -72,20 +72,15 @@ public class Deck {
      * and reset the size to represent the entire deck.
      */
     public void shuffle() {
-        Card[] shuffled = new Card[52];
-        int k = 0;
-        for(int j = 0; j < 25; j++) {
-            shuffled[k] = cards.get(j);
-            k+=2;
+        for(int k = cards.size() - 1; k > 0; k--) {
+            int howMany = k+1;
+            int start = 0;
+            int randPos = (int) (Math.random() * howMany) + start;
+            Card temp = cards.get(k);
+            cards.set(k, cards.get(randPos));
+            cards.set(randPos, temp);
         }
-        k=1;
-        for(int j = 26; j < 52; j++) {
-            shuffled[k] = cards.get(j);
-            k+=2;
-        }
-        for(int i = 0; i < shuffled.length;i++) {
-            cards.set(i, shuffled[i]);
-        }
+        size = cards.size();
     }
 
     /**
@@ -106,6 +101,11 @@ public class Deck {
 
     public void addToTop(Card newCard) {
         cards.add(newCard);
+        size++;
+    }
+
+    public void addToBottom(Card newCard) {
+        cards.add(0, newCard);
         size++;
     }
 
