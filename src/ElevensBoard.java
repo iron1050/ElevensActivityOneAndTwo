@@ -184,8 +184,33 @@ public class ElevensBoard {
      *         false otherwise.
      */
     public boolean isLegal(List<Integer> selectedCards) {
-        /* *** TO BE IMPLEMENTED  *** */
+        boolean result = true;
+        int count = 0;
+        for(int num : selectedCards) {
+            count+=cards[num].pointValue();
+        }
+        if(count!=11) {
+            return false;
+        }
+        boolean hasKing = false;
+        boolean hasJack = false;
+        boolean hasQueen = false;
+        for(int num : selectedCards) {
+            if(cards[num].rank().equals("queen")) {
+                hasQueen = true;
+            }
+            if(cards[num].rank().equals("jack")) {
+                hasJack = true;
+            }
+            if(cards[num].rank().equals("king")) {
+                hasKing = true;
+            }
+        }
+        return hasKing && hasJack && hasQueen;
+
     }
+
+
 
     /**
      * Determine if there are any legal plays left on the board.
@@ -232,7 +257,21 @@ public class ElevensBoard {
      *              include a jack, a queen, and a king; false otherwise.
      */
     private boolean containsJQK(List<Integer> selectedCards) {
-        /* *** TO BE IMPLEMENTED  *** */
+        boolean hasKing = false;
+        boolean hasJack = false;
+        boolean hasQueen = false;
+        for(int num : selectedCards) {
+            if(cards[num].rank().equals("queen")) {
+                hasQueen = true;
+            }
+            if(cards[num].rank().equals("jack")) {
+                hasJack = true;
+            }
+            if(cards[num].rank().equals("king")) {
+                hasKing = true;
+            }
+        }
+        return hasKing && hasJack && hasQueen;
     }
 
 
