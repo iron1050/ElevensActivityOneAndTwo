@@ -1,9 +1,11 @@
 import java.util.*;
 public class ElevensRunner {
 
+
     public static void main(String[] args) {
         ElevensBoard gameBoard = new ElevensBoard();
         gameBoard.newGame();
+        boolean lose = false;
         Scanner s = new Scanner(System.in);
         while(!gameBoard.gameIsWon()) {
 
@@ -25,16 +27,25 @@ public class ElevensRunner {
             if(playerChoice.length()>3) {
                 thirdIndex = Integer.parseInt(playerChoice, 4,5,10);
             }
+
             List<Integer> playerIndexes = new ArrayList<>();
             playerIndexes.add(firstIndex);
             playerIndexes.add(secondIndex);
             if(thirdIndex!=-1) {
                 playerIndexes.add(thirdIndex);
             }
-
+            System.out.println(playerIndexes);
+            System.out.println(gameBoard.isLegal(playerIndexes));
             if(gameBoard.isLegal(playerIndexes)) {
                 gameBoard.replaceSelectedCards(playerIndexes);
             }
+
+        }
+        if(!gameBoard.gameIsWon()) {
+            System.out.println("You lost 😢");
+        }else {
+            System.out.println("You won!");
+
         }
     }
 }

@@ -15,7 +15,7 @@ public class ElevensBoard {
      * The ranks of the cards for this game to be sent to the deck.
      */
     private static final String[] RANKS =
-            {"ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
+            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
     /**
      * The suits of the cards for this game to be sent to the deck.
@@ -188,29 +188,7 @@ public class ElevensBoard {
      *         false otherwise.
      */
     public boolean isLegal(List<Integer> selectedCards) {
-        boolean result = true;
-        int count = 0;
-        for(int num : selectedCards) {
-            count+=cards[num].pointValue();
-        }
-        if(count!=11) {
-            return false;
-        }
-        boolean hasKing = false;
-        boolean hasJack = false;
-        boolean hasQueen = false;
-        for(int num : selectedCards) {
-            if(cards[num].rank().equals("queen")) {
-                hasQueen = true;
-            }
-            if(cards[num].rank().equals("jack")) {
-                hasJack = true;
-            }
-            if(cards[num].rank().equals("king")) {
-                hasKing = true;
-            }
-        }
-        return hasKing && hasJack && hasQueen;
+        return containsJQK(selectedCards) || containsPairSum11(selectedCards);
 
     }
 
@@ -274,13 +252,13 @@ public class ElevensBoard {
         boolean hasJack = false;
         boolean hasQueen = false;
         for(int num : selectedCards) {
-            if(cards[num].rank().equals("queen")) {
+            if(cards[num].rank().equals("Q")) {
                 hasQueen = true;
             }
-            if(cards[num].rank().equals("jack")) {
+            if(cards[num].rank().equals("J")) {
                 hasJack = true;
             }
-            if(cards[num].rank().equals("king")) {
+            if(cards[num].rank().equals("Q")) {
                 hasKing = true;
             }
         }
