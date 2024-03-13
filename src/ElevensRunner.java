@@ -18,7 +18,7 @@ public class ElevensRunner {
             String cardsDisplay = "";
             for(int i = 0; i <= 8;i++) {
                 if(gameBoard.cardAt(i)==null) {
-                    cardsDisplay+=null;
+                    cardsDisplay+=null + " ";
                 }else {
                     cardsDisplay += gameBoard.cardAt(i).rank() + "" + gameBoard.cardAt(i).suit() + "  ";
                 }
@@ -52,7 +52,7 @@ public class ElevensRunner {
         }
 
         if(!gameBoard.gameIsWon()) {
-            //System.out.println("You lost 😢");
+            System.out.println("You lost 😢");
         }else {
             System.out.println("You won!");
 

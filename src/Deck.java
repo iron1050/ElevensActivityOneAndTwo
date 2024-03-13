@@ -1,7 +1,3 @@
-
-
-
-import java.sql.Array;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,7 +11,7 @@ public class Deck {
     /**
      * cards contains all the cards in the deck.
      */
-    private ArrayList<Card> cards;
+    private List<Card> cards;
 
     /**
      * size is the number of not-yet-dealt cards.
@@ -34,20 +30,14 @@ public class Deck {
      * @param values is an array containing all of the card point values.
      */
     public Deck(String[] ranks, String[] suits, int[] values) {
-        cards = new ArrayList<>();
-        //int j = 0;
-
-        for(int i = 0; i < suits.length; i++) {
-            for(int j = 0; j < ranks.length;j++) {
-                cards.add(new Card(ranks[j],suits[i],values[j]));
+        cards = new ArrayList<Card>();
+        for (int j = 0; j < ranks.length; j++) {
+            for (String suitString : suits) {
+                cards.add(new Card(ranks[j], suitString, values[j]));
             }
         }
         size = cards.size();
-    }
-
-    public Deck() {
-        cards = new ArrayList<>();
-        size = cards.size();
+        shuffle();
     }
 
 
@@ -56,7 +46,7 @@ public class Deck {
      * @return true if this deck is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return cards.isEmpty();
+        return size == 0;
     }
 
     /**
@@ -72,8 +62,8 @@ public class Deck {
      * and reset the size to represent the entire deck.
      */
     public void shuffle() {
-        for(int k = cards.size() - 1; k > 0; k--) {
-            int howMany = k+1;
+        for (int k = cards.size() - 1; k > 0; k--) {
+            int howMany = k + 1;
             int start = 0;
             int randPos = (int) (Math.random() * howMany) + start;
             Card temp = cards.get(k);
@@ -89,24 +79,12 @@ public class Deck {
      *         previously dealt.
      */
     public Card deal() {
-        if(isEmpty()) {
-            return null;
-        }
-        if(size-1<0) {
+        if (isEmpty()) {
             return null;
         }
         size--;
-        return cards.remove(size);
-    }
-
-    public void addToTop(Card newCard) {
-        cards.add(newCard);
-        size++;
-    }
-
-    public void addToBottom(Card newCard) {
-        cards.add(0, newCard);
-        size++;
+        Card c = cards.get(size);
+        return c;
     }
 
     /**

@@ -15,7 +15,8 @@ public class ElevensBoard {
      * The ranks of the cards for this game to be sent to the deck.
      */
     private static final String[] RANKS =
-            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+            //{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+            {"A","10"};
 
     /**
      * The suits of the cards for this game to be sent to the deck.
@@ -27,7 +28,8 @@ public class ElevensBoard {
      * The values of the cards for this game to be sent to the deck.
      */
     private static final int[] POINT_VALUES =
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0};
+            //{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0};
+            {1,10};
 
 
 
@@ -189,8 +191,13 @@ public class ElevensBoard {
      *         false otherwise.
      */
     public boolean isLegal(List<Integer> selectedCards) {
-        return containsJQK(selectedCards) || containsPairSum11(selectedCards);
-
+        if (selectedCards.size() == 2) {
+            return containsPairSum11(selectedCards);
+        } else if (selectedCards.size() == 3) {
+            return containsJQK(selectedCards);
+        } else {
+            return false;
+        }
     }
 
 
@@ -227,12 +234,12 @@ public class ElevensBoard {
      *              contain an 11-pair; false otherwise.
      */
     private boolean containsPairSum11(List<Integer> selectedCards) {
-        if(selectedCards.size()<2) {
-            return false;
-        }
-        for(int i = 0; i < selectedCards.size();i++) {
-            for(int j = i + 1; j < selectedCards.size();j++) {
-                if(cards[selectedCards.get(j)].pointValue()+cards[selectedCards.get(i)].pointValue()==11) {
+        /* *** TO BE CHANGED INTO findPairSum11 IN ACTIVITY 11 *** */
+        for (int sk1 = 0; sk1 < selectedCards.size(); sk1++) {
+            int k1 = selectedCards.get(sk1).intValue();
+            for (int sk2 = sk1 + 1; sk2 < selectedCards.size(); sk2++) {
+                int k2 = selectedCards.get(sk2).intValue();
+                if (cardAt(k1).pointValue() + cardAt(k2).pointValue() == 11) {
                     return true;
                 }
             }
@@ -249,21 +256,21 @@ public class ElevensBoard {
      *              include a jack, a queen, and a king; false otherwise.
      */
     private boolean containsJQK(List<Integer> selectedCards) {
-        boolean hasKing = false;
-        boolean hasJack = false;
-        boolean hasQueen = false;
-        for(int num : selectedCards) {
-            if(cards[num].rank().equals("Q")) {
-                hasQueen = true;
-            }
-            if(cards[num].rank().equals("J")) {
-                hasJack = true;
-            }
-            if(cards[num].rank().equals("Q")) {
-                hasKing = true;
+        /* *** TO BE CHANGED INTO findJQK IN ACTIVITY 11 *** */
+        boolean foundJack = false;
+        boolean foundQueen = false;
+        boolean foundKing = false;
+        for (Integer kObj : selectedCards) {
+            int k = kObj.intValue();
+            if (cardAt(k).rank().equals("J")) {
+                foundJack = true;
+            } else if (cardAt(k).rank().equals("Q")) {
+                foundQueen = true;
+            } else if (cardAt(k).rank().equals("K")) {
+                foundKing = true;
             }
         }
-        return hasKing && hasJack && hasQueen;
+        return foundJack && foundQueen && foundKing;
     }
 
 
